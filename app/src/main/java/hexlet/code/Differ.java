@@ -36,7 +36,7 @@ public class Differ {
                 result.add("-" + " " + key + ": " + mapFromJson1.get(key) + "\n");
             }
             if (!mapFromJson2.containsKey((key))) {
-                result.add("-" + " " + key + ": "+ mapFromJson1.get(key) + "\n");
+                result.add("-" + " " + key + ": " + mapFromJson1.get(key) + "\n");
             }
             if (mapFromJson2.containsKey(key) && !mapFromJson1.containsKey(key)) {
                 result.add("+" + " " + key + ": " + mapFromJson2.get(key) + "\n");
@@ -49,7 +49,7 @@ public class Differ {
         return result.toString();
     }
 
-    private static Set<String> keysFromMap (Map<String, Object> map) {
+    private static Set<String> keysFromMap(Map<String, Object> map) {
         Set<String> keys = new HashSet<>();
         for (Map.Entry<String, Object> key : map.entrySet()) {
             keys.add(key.getKey());
@@ -57,13 +57,13 @@ public class Differ {
         return keys;
     }
 
-    private static Map<String, Object> convertJsonToMap (String jsonFile) throws Exception {
+    private static Map<String, Object> convertJsonToMap(String jsonFile) throws Exception {
         Path jsonFilePath = Paths.get(jsonFile).toAbsolutePath().normalize();
         if (!Files.exists(jsonFilePath)) {
             throw new Exception("File '" + jsonFilePath + "' does not exist");
         }
         String content = Files.readString(jsonFilePath);
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(content, new TypeReference<>(){});
+        return objectMapper.readValue(content, new TypeReference<>() { });
     }
 }
