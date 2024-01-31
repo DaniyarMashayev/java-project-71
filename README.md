@@ -5,5 +5,6 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b98d07ff9c959859938e/test_coverage)](https://codeclimate.com/github/DaniyarMashayev/java-project-71/test_coverage)
 
 
-https://asciinema.org/a/YgFffAiprEgRJI5pkuDHMFa3d                [!результат пятого шага] 
+https://asciinema.org/a/YgFffAiprEgRJI5pkuDHMFa3d                                   [!результат пятого шага]
 
+https://asciinema.org/connect/dcad3bc5-6f2f-4660-9bd9-6aad55a67048                  [!результат седьмого шага]
