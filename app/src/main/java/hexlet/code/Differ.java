@@ -14,10 +14,12 @@ import java.util.StringJoiner;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
+import static hexlet.code.Parser.parseData;
+
 public class Differ {
     public static String generate(String file1, String file2) throws Exception {
-        Map<String, Object> mapFromJson1 = convertJsonToMap(file1);
-        Map<String, Object> mapFromJson2 = convertJsonToMap(file2);
+        Map<String, Object> mapFromJson1 = parseData(file1);
+        Map<String, Object> mapFromJson2 = parseData(file2);
         Set<String> keys1 = keysFromMap(mapFromJson1);
         Set<String> keys2 = keysFromMap(mapFromJson2);
         keys1.addAll(keys2);
@@ -57,12 +59,12 @@ public class Differ {
         return keys;
     }
 
-    private static Map<String, Object> convertJsonToMap(String jsonFile) throws Exception {
-        Path jsonFilePath = Paths.get(jsonFile).toAbsolutePath().normalize();
-        if (!Files.exists(jsonFilePath)) {
-            throw new Exception("File '" + jsonFilePath + "' does not exist");
+    private static Map<String, Object> convertJsonToMap(String file) throws Exception {
+        Path filePath = Paths.get(file).toAbsolutePath().normalize();
+        if (!Files.exists(filePath)) {
+            throw new Exception("File '" + filePath + "' does not exist");
         }
-        String content = Files.readString(jsonFilePath);
+        String content = Files.readString(filePath);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(content, new TypeReference<>() { });
     }
