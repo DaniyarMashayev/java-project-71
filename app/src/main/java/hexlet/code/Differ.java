@@ -1,54 +1,54 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.LinkedHashSet;
-import java.util.StringJoiner;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 import static hexlet.code.Parser.parseData;
+import static hexlet.code.Stylish.getFormatterStylish;
 
 public class Differ {
-    public static String generate(String file1, String file2) throws Exception {
-        Map<String, Object> mapFromJson1 = parseData(file1);
-        Map<String, Object> mapFromJson2 = parseData(file2);
-        Set<String> keys1 = keysFromMap(mapFromJson1);
-        Set<String> keys2 = keysFromMap(mapFromJson2);
-        keys1.addAll(keys2);
-        Set<String> sortedKeys = keys1.stream()
-                .sorted()
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+    public static String generate(String file1, String file2, String format) throws Exception {
+        List<Map<String, Object>> diff = getDiff(file1, file2);
+        return getFormatterStylish(diff);
+    }
 
-        StringJoiner result = new StringJoiner(" ", "{\n ", "}");
+    private static List<Map<String, Object>> getDiff(String file1, String file2) throws Exception {
+        List<Map<String, Object>> diff = new ArrayList<>();
+        Map<String, Object> map1 = parseData(file1);
+        Map<String, Object> map2 = parseData(file2);
+        Set<String> keys1 = keysFromMap(map1);
+        Set<String> keys2 = keysFromMap(map2);
+        Set<String> sortedKeys = getSortedKeys(keys1, keys2);
         for (String key : sortedKeys) {
-            if ((mapFromJson1.containsKey(key) && mapFromJson2.containsKey(key))
-                    && mapFromJson2.get(key).equals(mapFromJson1.get(key))) {
-                result.add(" " + " " + key + ": " + mapFromJson1.get(key) + "\n");
+            Map<String, Object> map = new LinkedHashMap<>();
+            if (map1.containsKey(key) && !map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("status", "removed");
+            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("newValue", map2.get(key));
+                map.put("status", "added");
+            } else if (!Objects.equals(map1.get(key), map2.get(key))) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("newValue", map2.get(key));
+                map.put("status", "changed");
+            } else {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("status", "unchanged");
             }
-            if ((mapFromJson1.containsKey(key) && mapFromJson2.containsKey(key))
-                    && !mapFromJson2.containsValue(mapFromJson1.get(key))) {
-                result.add("-" + " " + key + ": " + mapFromJson1.get(key) + "\n");
-            }
-            if (!mapFromJson2.containsKey((key))) {
-                result.add("-" + " " + key + ": " + mapFromJson1.get(key) + "\n");
-            }
-            if (mapFromJson2.containsKey(key) && !mapFromJson1.containsKey(key)) {
-                result.add("+" + " " + key + ": " + mapFromJson2.get(key) + "\n");
-            }
-            if (mapFromJson2.containsKey(key) && mapFromJson1.containsKey(key)
-                    && !mapFromJson2.get(key).equals(mapFromJson1.get(key))) {
-                result.add("+" + " " + key + ": " + mapFromJson2.get(key) + "\n");
-            }
+            diff.add(map);
         }
-        return result.toString();
+        return diff;
     }
 
     private static Set<String> keysFromMap(Map<String, Object> map) {
@@ -59,13 +59,10 @@ public class Differ {
         return keys;
     }
 
-    private static Map<String, Object> convertJsonToMap(String file) throws Exception {
-        Path filePath = Paths.get(file).toAbsolutePath().normalize();
-        if (!Files.exists(filePath)) {
-            throw new Exception("File '" + filePath + "' does not exist");
-        }
-        String content = Files.readString(filePath);
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(content, new TypeReference<>() { });
+    private static Set<String> getSortedKeys(Set<String> keys1, Set<String> keys2) {
+        keys1.addAll(keys2);
+        return keys1.stream()
+                .sorted()
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 }
