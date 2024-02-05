@@ -11,6 +11,10 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
+    public static void main(String[] args) throws Exception {
+        String file = "file2-2.json";
+        System.out.println(parseData(file));
+    }
     public static Map<String, Object> parseData(String file) throws Exception {
         Path filePath = Paths.get(file).toAbsolutePath().normalize();
         if (!Files.exists(filePath)) {
