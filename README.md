@@ -11,3 +11,4 @@ https://asciinema.org/connect/dcad3bc5-6f2f-4660-9bd9-6aad55a67048              
 
 https://asciinema.org/a/gt3zPBFqPKCQwuw2MLzt5kdBa                                   [!результат восьмого шага]
 
+https://asciinema.org/a/rlmzDNFtPLc2Fzz5Kl8GWChAx                                   [!результат девятого шага]
