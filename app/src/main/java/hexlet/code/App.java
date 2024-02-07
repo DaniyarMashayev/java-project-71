@@ -13,20 +13,20 @@ public class App implements Callable<String> {
 
     @Option(names = {"-f", "--format"}, paramLabel = "format",
             defaultValue = "stylish", description = "output format [default: stylish]")
-    private String format;
+    private String formatName;
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
-    public String file1;
+    private String file1;
     @Parameters(paramLabel = "filepath2", description = "path to second file")
-    public String file2;
+    private String file2;
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
-    private boolean help;
+    public boolean help;
     @Option(names = {"-V", "--version"}, description = "Print version information and exit.")
     private boolean version;
 
     @Override
     public String call() throws Exception {
-        String result = Differ.generate(file1, file2, format);
+        String result = Differ.generate(file1, file2, formatName);
         System.out.println(result);
         return result;
     }
