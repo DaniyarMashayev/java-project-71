@@ -11,15 +11,17 @@ import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 import static hexlet.code.Parser.parseData;
-import static hexlet.code.Stylish.getFormatterStylish;
+import static hexlet.code.Formatter.getFormatStyle;
 
 public class Differ {
     public static String generate(String file1, String file2, String format) throws Exception {
         List<Map<String, Object>> diff = getDiff(file1, file2);
-        return getFormatterStylish(diff);
+        return getFormatStyle(diff, format);
     }
-
-    private static List<Map<String, Object>> getDiff(String file1, String file2) throws Exception {
+    public static String generate(String file1, String file2) throws Exception {
+        return generate(file1, file2, "stylish");
+    }
+    public static List<Map<String, Object>> getDiff(String file1, String file2) throws Exception {
         List<Map<String, Object>> diff = new ArrayList<>();
         Map<String, Object> map1 = parseData(file1);
         Map<String, Object> map2 = parseData(file2);
