@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<String> {
+public final class App implements Callable<String> {
 
     @Option(names = {"-f", "--format"}, paramLabel = "format",
             defaultValue = "stylish", description = "output format stylish, plain, json [default: stylish]")
@@ -20,7 +20,7 @@ public class App implements Callable<String> {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String file2;
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
-    public boolean help;
+    private boolean help;
     @Option(names = {"-V", "--version"}, description = "Print version information and exit.")
     private boolean version;
 
