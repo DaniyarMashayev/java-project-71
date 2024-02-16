@@ -11,7 +11,7 @@ public class Plain {
             if (map.get("status").equals("changed")) {
                 result.append("Property " + "'" + map.get("key") + "'" + " was updated. "
                         + "From " + getComplexValue(map.get("oldValue"))
-                        + " to " + getComplexValue(map.get("newValue")) + "\n");
+                        + " to " + getComplexValue(map.get("newValue")));
             } else if (map.get("status").equals("added")) {
                 result.append("Property " + "'" + map.get("key") + "'"
                         + " was added with value: " + getComplexValue(map.get("newValue")) + "\n");
