@@ -11,7 +11,7 @@ public class Plain {
             if (map.get("status").equals("changed")) {
                 result.append("Property " + "'" + map.get("key") + "'" + " was updated. "
                         + "From " + getComplexValue(map.get("oldValue"))
-                        + " to " + getComplexValue(map.get("newValue")));
+                        + " to " + getComplexValue(map.get("newValue")) + "\n");
             } else if (map.get("status").equals("added")) {
                 result.append("Property " + "'" + map.get("key") + "'"
                         + " was added with value: " + getComplexValue(map.get("newValue")) + "\n");
@@ -19,7 +19,7 @@ public class Plain {
                 result.append(("Property " + "'" + map.get("key") + "'" + " was removed" + "\n"));
             }
         }
-        return result.toString();
+        return result.toString().strip();
     }
 
     private static String getComplexValue(Object value) {
