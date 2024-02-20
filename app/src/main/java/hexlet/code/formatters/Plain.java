@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Plain {
-    public static String getFormatPlain(List<Map<String, Object>> diff) {
+    public static String formatPlain(List<Map<String, Object>> diff) {
         StringBuilder result = new StringBuilder();
         for (Map<String, Object> map : diff) {
             if (map.get("status").equals("changed")) {
