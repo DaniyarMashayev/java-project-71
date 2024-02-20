@@ -19,9 +19,9 @@ public class DifferTest {
     private static String fileYaml2;
     @BeforeAll
     public static void initFiles() {
-        expectedStylish = "src/test/resources/expected/testStylishFormat";
-        expectedPlain = "src/test/resources/expected/testPlainFormat";
-        expectedJson = "src/test/resources/expected/testJsonFormat";
+        expectedStylish = "src/test/resources/fixtures/expected/testStylishFormat";
+        expectedPlain = "src/test/resources/fixtures/expected/testPlainFormat";
+        expectedJson = "src/test/resources/fixtures/expected/testJsonFormat";
         fileJson1 = "src/test/resources/fixtures/file1.json";
         fileJson2 = "src/test/resources/fixtures/file2.json";
         fileYaml1 = "src/test/resources/fixtures/file1.yml";
