@@ -19,10 +19,6 @@ public final class App implements Callable<String> {
     private String file1;
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String file2;
-    @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
-    private boolean help;
-    @Option(names = {"-V", "--version"}, description = "Print version information and exit.")
-    private boolean version;
 
     @Override
     public String call() throws Exception {
