@@ -10,16 +10,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static hexlet.code.Parser.parseData;
-
 public class GenerateDifference {
-    public static List<Map<String, Object>> getDiff(String file1, String file2) throws Exception {
+    public static List<Map<String, Object>>
+        getDiff(Map<String, Object> map1, Map<String, Object> map2) {
         List<Map<String, Object>> diff = new ArrayList<>();
-        Map<String, Object> map1 = parseData(file1);
-        Map<String, Object> map2 = parseData(file2);
-        Set<String> keys1 = keysFromMap(map1);
-        Set<String> keys2 = keysFromMap(map2);
-        Set<String> sortedKeys = getSortedKeys(keys1, keys2);
+        Set<String> sortedKeys = getSortedKeys(map1, map2);
         for (String key : sortedKeys) {
             Map<String, Object> map = new LinkedHashMap<>();
             if (map1.containsKey(key) && !map2.containsKey(key)) {
@@ -53,7 +48,9 @@ public class GenerateDifference {
         return keys;
     }
 
-    private static Set<String> getSortedKeys(Set<String> keys1, Set<String> keys2) {
+    private static Set<String> getSortedKeys(Map<String, Object> map1, Map<String, Object> map2) {
+        Set<String> keys1 = keysFromMap(map1);
+        Set<String> keys2 = keysFromMap(map2);
         keys1.addAll(keys2);
         return keys1.stream()
                 .sorted()
