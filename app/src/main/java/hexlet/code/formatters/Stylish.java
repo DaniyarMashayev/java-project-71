@@ -24,6 +24,6 @@ public class Stylish {
             }
         }
         result.append("}");
-        return result.toString();
+        return result.toString().strip();
     }
 }
